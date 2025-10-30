@@ -1,3 +1,2 @@
 start:
-	uv run flask --app example --debug run --port 8000
-
+	uv run flask --app ./example/example --debug run --port 8000
