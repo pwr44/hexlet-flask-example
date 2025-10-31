@@ -8,6 +8,11 @@ companies = generate_companies(100)
 app = Flask(__name__)
 
 
+@app.teardown_request
+def run_always(exception):
+    print("This will always run")
+
+
 @app.route("/")
 def hello_world():
     # создаем объект response
