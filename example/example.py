@@ -31,6 +31,11 @@ def get_companies():
     return jsonify(slice_of_companies)
 
 
+@app.route("/courses/<id>")
+def courses_show(id):
+    return f"Course id: {id}"
+
+
 @app.route("/json/")
 def json():
     return {"json": 42}  # Возвращает тип application/json
