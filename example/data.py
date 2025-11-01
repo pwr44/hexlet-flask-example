@@ -18,3 +18,17 @@ def generate_companies(companies_count):
             "phone": fake.phone_number(),
         })
     return companies
+
+
+def generate_courses(courses_count):
+    fake = Faker()
+    fake.seed_instance(SEED)
+    ids = list(range(courses_count))
+    random.seed(SEED)
+    random.shuffle(ids)
+    courses = []
+    for i in range(courses_count):
+        courses.append({
+            "name": fake.company(),
+        })
+    return courses

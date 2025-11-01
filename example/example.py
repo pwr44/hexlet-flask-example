@@ -1,8 +1,9 @@
 from flask import Flask, request, render_template, make_response, jsonify
 
-from data import generate_companies
+from data import generate_companies, generate_courses
 
 companies = generate_companies(100)
+courses = generate_courses(20)
 
 
 app = Flask(__name__)
@@ -57,6 +58,23 @@ def users_show(id):
 @app.route("/courses/<id>")
 def courses_show(id):
     return f"Course id: {id}"
+
+
+@app.route("/courses/")
+def courses_layout():
+    return render_template(
+        "courses/layout.html",
+        # передаем в переменную courses
+    )
+
+@app.route("/courses/index.html")
+def courses_index():
+    return render_template(
+        "courses/index.html",
+        # передаем в переменную courses
+        courses=courses,
+    )
+
 
 
 @app.route("/json/")
