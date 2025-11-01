@@ -27,13 +27,31 @@ def hello_world():
     response.set_cookie("super-cookie", "42")
     return response
 
-@app.route('/companies')
+@app.route('/companies/')
 def get_companies():
     page = request.args.get('page', 1, type=int)
     limit = request.args.get('per', 5, type=int)
     offset = (page - 1) * limit
     slice_of_companies = companies[offset:page * limit]
-    return jsonify(slice_of_companies)
+    return render_template(
+        'companies/view.html',
+        companies=slice_of_companies
+    )
+
+# @app.route('/companies/')
+# def get_companies():
+#     page = request.args.get('page', 1, type=int)
+#     limit = request.args.get('per', 5, type=int)
+#     offset = (page - 1) * limit
+#     slice_of_companies = companies[offset:page * limit]
+#     return jsonify(slice_of_companies)
+
+@app.route("/users/<id>")
+def users_show(id):
+    return render_template(
+        "index.html",
+        name=id,
+    )
 
 
 @app.route("/courses/<id>")
