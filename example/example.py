@@ -9,6 +9,15 @@ courses = generate_courses(20)
 app = Flask(__name__)
 
 
+users = [
+    {"id": 1, "name": "mike"},
+    {"id": 2, "name": "mishel"},
+    {"id": 3, "name": "adel"},
+    {"id": 4, "name": "keks"},
+    {"id": 5, "name": "kamila"},
+]
+
+
 @app.teardown_request
 def run_always(exception):
     print("This will always run")
@@ -47,11 +56,22 @@ def get_companies():
 #     slice_of_companies = companies[offset:page * limit]
 #     return jsonify(slice_of_companies)
 
-@app.route("/users/<id>")
-def users_show(id):
+# @app.route("/users/<id>")
+# def users_show(id):
+#     return render_template(
+#         "index.html",
+#         name=id,
+#     )
+
+
+@app.route("/users/")
+def users_show():
+    query = request.args.get('query', '')
+    filtered_users = filter(lambda user: query in user['name'], users)
     return render_template(
-        "index.html",
-        name=id,
+        'users/index.html',
+        users = filtered_users,
+        search=query
     )
 
 
